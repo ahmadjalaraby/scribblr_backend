@@ -187,9 +187,7 @@ const perpage = computed(
     () => props.model.countries.per_page,
 );
 
-const pageRange = computed(
-    () => props.model.countries.last_page,
-);
+const pageRange = 3;
 
 const viewModel = (id) => {
     console.log(id);

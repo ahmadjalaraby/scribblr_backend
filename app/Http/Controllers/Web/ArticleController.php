@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Web;
 
-use App\Actions\Article\DeleteArticleAction;
-use App\Actions\Article\UpsertArticleAction;
+use App\Actions\Web\Article\DeleteArticleAction;
+use App\Actions\Web\Article\UpsertArticleAction;
 use App\DataTransferObjects\ArticleData;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
@@ -42,9 +44,11 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ArticleData $data): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        UpsertArticleAction::execute($data);
+        UpsertArticleAction::execute(
+            data: ArticleData::fromRequest(request: $request)
+        );
         return Redirect::back();
     }
 
@@ -62,16 +66,19 @@ class ArticleController extends Controller
     public function edit(Article $article): Response
     {
         return Inertia::render('Article/Edit', [
-            'model' => new EditArticleViewModel($article),
+            'model' => new EditArticleViewModel(article: $article),
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(ArticleData $data, Article $article): RedirectResponse
+    public function update(Request $request, Article $article): RedirectResponse
     {
-        UpsertArticleAction::execute($data);
+        UpsertArticleAction::execute(
+            data: ArticleData::fromRequest(request: $request),
+        );
+
         return Redirect::back();
     }
 
@@ -80,7 +87,8 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article): RedirectResponse
     {
-        DeleteArticleAction::execute($article);
+        DeleteArticleAction::execute(article: $article);
+
         return Redirect::back();
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Builders\ArticleBuilder;
 use App\Constants\DateTime\DateTimeFormat;
 use App\DataTransferObjects\ArticleData;
 use App\Enums\Article\ArticleStatus;
 use App\Traits\HasImage;
+use App\Traits\HasSerializeDate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,6 +21,7 @@ class Article extends Model
     use HasImage;
     use SoftDeletes;
     use WithData;
+    use HasSerializeDate;
 
     protected string $dataClass = ArticleData::class;
 
@@ -36,8 +39,15 @@ class Article extends Model
     protected $casts = [
         'status' => ArticleStatus::class,
         'publish_at' => 'datetime:' . DateTimeFormat::PUBLISH_AT,
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
+
+    public function newEloquentBuilder($query): ArticleBuilder
+    {
+        return new ArticleBuilder($query);
+    }
 
     public function visits(): HasMany
     {

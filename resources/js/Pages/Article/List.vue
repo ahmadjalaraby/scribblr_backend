@@ -39,7 +39,7 @@
                     v-if="props.column.field == 'status'"
                     class="text-slate-800 dark:text-slate-400"
                 >
-          {{ useI18n().t(`dashboard.${props.row.status.name}`) }}
+          {{ useI18n().t(`dashboard.${props.row.status}`) }}
         </span>
 
                 <span
@@ -213,9 +213,9 @@ const perpage = computed(
     () => props.model.articles.per_page,
 );
 
-const pageRange = computed(
-    () => props.model.articles.last_page,
-);
+const pageRange = 3;
+
+console.log(pageRange);
 
 const viewModel = (id) => {
     console.log(id);

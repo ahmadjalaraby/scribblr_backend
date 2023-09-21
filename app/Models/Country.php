@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\DataTransferObjects\CountryData;
-use App\Traits\HasImage;
+use App\Traits\HasSerializeDate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,6 +13,7 @@ class Country extends Model
 {
     use HasFactory;
     use withData;
+    use HasSerializeDate;
 
     protected string $dataClass = CountryData::class;
 
@@ -22,6 +23,11 @@ class Country extends Model
         'code',
         'start',
         'active'
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function users(): HasMany

@@ -77,6 +77,50 @@ final class GalleryData extends Data
         );
     }
 
+    public static function fromBase64(string $base64Image, string $imageDir = ''): self
+    {
+        // Convert base64 string to a temporary UploadedFile instance
+        $tempFile = tempnam(sys_get_temp_dir(), 'base64' . '/' . $imageDir);
+        file_put_contents($tempFile, base64_decode($base64Image));
+
+        $mime = mime_content_type($tempFile);
+
+        // Calculate the size of the decoded base64 data
+        $size = FileSize::from(strlen(base64_decode($base64Image)))->toFormat(SizeFormat::kilobytes);
+
+        // get image dimension
+        $imageSize = getimagesize($tempFile);
+
+        // upload the image
+        $uploadedFile = new UploadedFile(
+            $tempFile,
+            Str::random() . '.png',
+            $mime,
+            0,
+            true
+        );
+        $uploadedFilePath = UploadFileService::upload($uploadedFile, $imageDir);
+
+        if ($uploadedFilePath) {
+            $uploadedFilePath = str_replace(Str::addSlash(ImageDirectoryConstants::PUBLIC), '', $uploadedFilePath);
+        }
+
+        $imageDimension = ImageDimension::from($imageSize[0], $imageSize[1]);
+
+        // Clean up the temporary file
+        unlink($tempFile);
+
+        return self::from([
+            'mime' => $mime,
+            'size' => $size,
+            'path' => $uploadedFilePath,
+            'width' => $imageDimension->width,
+            'height' => $imageDimension->height,
+            'aspect_ratio' => $imageDimension->aspectRatio,
+        ]);
+    }
+
+
     public static function fromModels(Collection $galleries): LazyCollection
     {
         return LazyCollection::make(function () use ($galleries) {

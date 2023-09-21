@@ -28,7 +28,7 @@
                 class="w-48 h-48 rounded-full ltr:mr-3 rtl:ml-3 flex-none">
             <img
                 :alt="props.row.title"
-                :src="useImageUrl(props.row.image.path).imageUrl"
+                :src="useImageUrl(props.row.image?.path).imageUrl"
                 class="object-cover w-full h-full rounded-full"
             />
           </span>
@@ -39,7 +39,7 @@
                     v-if="props.column.field == 'gender'"
                     class="text-slate-800 dark:text-slate-400"
                 >
-          {{ useI18n().t(getGenderFromValue(props.row.gender.value.toLowerCase())) }}
+          {{ useI18n().t(getGenderFromValue(props.row.gender)) }}
         </span>
 
                 <span
@@ -152,7 +152,8 @@ import {router} from '@inertiajs/vue3';
 import {formatDistance} from 'date-fns';
 import {ar, enUS} from 'date-fns/locale';
 import useImageUrl from "@/Composables/useImageUrl";
-import {genderOptions, getGenderFromValue} from "../../constant/gender";
+import {genderOptions, getGenderFromValue} from "@/constant/gender";
+
 
 const pageTitle = computed(() => t('dashboard.users_index'));
 
@@ -193,9 +194,7 @@ const perpage = computed(
     () => props.model.users.per_page,
 );
 
-const pageRange = computed(
-    () => props.model.users.last_page,
-);
+const pageRange = 3;
 
 const viewModel = (id) => {
     console.log(id);

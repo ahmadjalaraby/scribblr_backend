@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Enums\Article;
 
-use Webfox\LaravelBackedEnums\BackedEnum;
-use Webfox\LaravelBackedEnums\IsBackedEnum;
+use App\Traits\IsEnumValues;
 
-enum ArticleStatus: string implements BackedEnum
+enum ArticleStatus: string
 {
-    use IsBackedEnum;
+    use IsEnumValues;
 
     case published = 'published';
 

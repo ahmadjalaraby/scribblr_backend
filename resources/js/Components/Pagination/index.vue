@@ -38,6 +38,7 @@
         >
       </div>
     </div>
+
     <ul class="pagination" :class="paginationClass">
       <li
         class="text-xl leading-4 text-slate-900 dark:text-white rtl:rotate-180"
@@ -223,6 +224,8 @@ export default defineComponent({
     },
     rangeEnd: function () {
       var end = this.current + this.pageRange;
+        console.log(end);
+        console.log(end < this.totalPages ? end : this.totalPages);
 
       return end < this.totalPages ? end : this.totalPages;
     },

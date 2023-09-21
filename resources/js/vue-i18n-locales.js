@@ -493,6 +493,7 @@ export default {
         "validation.between.numeric": "The {attribute} field must be between {min} and {max}.",
         "validation.between.string": "The {attribute} field must be between {min} and {max} characters.",
         "validation.boolean": "The {attribute} field must be true or false.",
+        "validation.can": "The {attribute} field contains an unauthorized value.",
         "validation.confirmed": "The {attribute} field confirmation does not match.",
         "validation.current_password": "The password is incorrect.",
         "validation.date": "The {attribute} field must be a valid date.",

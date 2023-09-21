@@ -2,12 +2,12 @@
 
 namespace App\Enums\User;
 
-use Webfox\LaravelBackedEnums\BackedEnum;
-use Webfox\LaravelBackedEnums\IsBackedEnum;
 
-enum UserGender: string implements BackedEnum
+use App\Traits\IsEnumValues;
+
+enum UserGender: string
 {
-    use IsBackedEnum;
+    use IsEnumValues;
 
     case male = 'm';
 

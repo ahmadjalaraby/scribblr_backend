@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use App\Events\UserRegistered;
+use App\Events\UserVisitedArticle;
+use App\Listeners\CreateVisitArticle;
 use App\Listeners\MakeUserProfile;
+use App\Models\User;
+use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -21,7 +25,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         UserRegistered::class => [
             MakeUserProfile::class
-        ]
+        ],
+        UserVisitedArticle::class => [
+          CreateVisitArticle::class,
+        ],
     ];
 
     /**
@@ -29,7 +36,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        User::observe(UserObserver::class);
     }
 
     /**

@@ -9,6 +9,7 @@ use App\Enums\User\UserGender;
 use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
 use Spatie\LaravelData\Attributes\WithCast;
@@ -32,8 +33,8 @@ final class UserData extends Data
         #[WithCast(EnumCast::class)]
         public readonly UserGender            $gender,
         #[WithCast(DateTimeInterfaceCast::class, format: DateTimeFormat::DATE_OF_BIRTH)]
-        #[WithTransformer(DateTimeInterfaceTransformer::class)]
-        public readonly ?DateTime             $date_of_birth,
+//        #[WithTransformer(DateTimeInterfaceTransformer::class)]
+        public readonly ?DateTime            $date_of_birth,
         public readonly null|Lazy|GalleryData $image,
     )
     {

@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Mixins\StrMixin;
 use App\Services\UploadFileService;
-use CloudCreativity\LaravelJsonApi\LaravelJsonApi;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use ReflectionException;
@@ -27,8 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        LaravelJsonApi::defaultApi('v1');
-
         // create a macro for string values: The macro will add a slash in the beginning or in the last.
         Str::mixin(new StrMixin);
     }

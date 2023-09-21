@@ -18,7 +18,10 @@ final class ImageDirectoryConstants
     /** @var string This variable for the countries directory folder */
     public const COUNTRY = 'countries';
 
-    /** @var string This variable for the users directories images */
+    /** @var string This variable for the users directory images */
     public const USER = 'users';
+
+    /** @var string This variable for the articles directory images */
+    public const ARTICLE = 'articles';
 
 }

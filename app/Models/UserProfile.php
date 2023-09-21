@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\DataTransferObjects\ProfileData;
+use App\Traits\HasSerializeDate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +13,7 @@ class UserProfile extends Model
 {
     use HasFactory;
     use withData;
+    use HasSerializeDate;
 
     protected string $dataClass = ProfileData::class;
 
@@ -26,6 +28,11 @@ class UserProfile extends Model
         'instagram',
         'website',
         'location',
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function user(): BelongsTo

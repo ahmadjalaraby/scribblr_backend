@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Builders\TagBuilder;
 use App\DataTransferObjects\TagData;
 use App\Traits\HasImage;
+use App\Traits\HasSerializeDate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -16,6 +17,10 @@ class Tag extends Model
     use HasFactory;
     use withData;
     use HasImage;
+    use HasSerializeDate;
+
+    protected string $dataClass = TagData::class;
+
 
     protected $fillable = [
         'id',
@@ -23,7 +28,10 @@ class Tag extends Model
         'active'
     ];
 
-    protected string $dataClass = TagData::class;
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 
     public function newEloquentBuilder($query): TagBuilder
     {

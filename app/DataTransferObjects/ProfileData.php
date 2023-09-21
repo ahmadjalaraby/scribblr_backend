@@ -4,7 +4,7 @@ namespace App\DataTransferObjects;
 
 use Spatie\LaravelData\Data;
 
-class ProfileData extends Data
+final class ProfileData extends Data
 {
     public function __construct(
         public readonly ?int    $id,

@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Actions\Tag\DeleteTagAction;
-use App\Actions\Tag\UpsertTagAction;
+use App\Actions\Web\Tag\DeleteTagAction;
+use App\Actions\Web\Tag\UpsertTagAction;
 use App\DataTransferObjects\TagData;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
-use App\ValueObjects\PaginateOptions;
 use App\ViewModels\Tag\EditTagViewModel;
 use App\ViewModels\Tag\GetTagsViewModel;
 use Illuminate\Http\RedirectResponse;

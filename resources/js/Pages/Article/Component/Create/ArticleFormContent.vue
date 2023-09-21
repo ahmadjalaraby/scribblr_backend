@@ -16,7 +16,6 @@ const props = defineProps({
     form: Object,
     tags: Object,
     status: Array,
-
 });
 
 const tags = computed(() => props.tags.map(tag => {

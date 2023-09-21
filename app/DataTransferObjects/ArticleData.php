@@ -5,17 +5,15 @@ namespace App\DataTransferObjects;
 use App\Constants\DateTime\DateTimeFormat;
 use App\Constants\Image\ImageDirectoryConstants;
 use App\Enums\Article\ArticleStatus;
-use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
 use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Attributes\WithTransformer;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Casts\EnumCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Lazy;
-use Spatie\LaravelData\Transformers\DateTimeInterfaceTransformer;
 
 final class ArticleData extends Data
 {
@@ -27,8 +25,7 @@ final class ArticleData extends Data
         public readonly ArticleStatus         $status,
         public readonly bool                  $allow_comments,
         #[WithCast(DateTimeInterfaceCast::class, format: DateTimeFormat::PUBLISH_AT)]
-        #[WithTransformer(DateTimeInterfaceTransformer::class)]
-        public readonly ?Carbon               $publish_time,
+        public readonly ?DateTime             $publish_time,
         public readonly int                   $tag_id,
         public readonly null|Lazy|GalleryData $image,
     )
@@ -39,7 +36,7 @@ final class ArticleData extends Data
     {
         $imageFile = $request->file('image');
 
-        $image = $imageFile ? GalleryData::fromFile($imageFile, ImageDirectoryConstants::USER)
+        $image = $imageFile ? GalleryData::fromFile($imageFile, ImageDirectoryConstants::ARTICLE)
             : null;
 
         return self::from([

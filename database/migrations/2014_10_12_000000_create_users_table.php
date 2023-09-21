@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\User\UserGender;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,8 +19,8 @@ return new class extends Migration
             $table->string('username')->index();
             $table->string('email')->unique();
             $table->string('phone_number')->nullable();
-            $table->char('gender', 1)->default('o');
-            $table->timestamp('date_of_birth')->nullable();
+            $table->enum('gender', UserGender::values())->default(UserGender::other->value);
+            $table->date('date_of_birth')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

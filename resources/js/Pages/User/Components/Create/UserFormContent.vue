@@ -74,7 +74,7 @@ const translatedGenderOptions = computed(() => {
                 id="date_of_birth"
                 v-model="props.form.date_of_birth"
                 :config="{
-                    dateFormat: 'Y-d-m'
+                    dateFormat: 'Y-m-d'
                 }"
                 class="form-control"
                 name="date_of_birth"

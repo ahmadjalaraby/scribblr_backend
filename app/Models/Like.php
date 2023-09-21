@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasSerializeDate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Like extends Model
 {
     use HasFactory;
+    use HasSerializeDate;
 
     protected $fillable = [
         'id',
@@ -16,6 +18,10 @@ class Like extends Model
         'comment_id'
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 
     public function user(): BelongsTo
     {

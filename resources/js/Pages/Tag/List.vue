@@ -27,7 +27,7 @@
           <span class="w-48 h-48 rounded-full ltr:mr-3 rtl:ml-3 flex-none">
             <img
                 :alt="props.row.title"
-                :src="useImageUrl(props.row.image.path).imageUrl"
+                :src="useImageUrl(props.row.image?.path).imageUrl"
                 class="object-cover w-full h-full rounded-full"
             />
           </span>
@@ -186,9 +186,7 @@ const perpage = computed(
     () => props.model.tags.per_page,
 );
 
-const pageRange = computed(
-    () => props.model.tags.last_page,
-);
+const pageRange = 3;
 
 const viewModel = (id) => {
     console.log(id);

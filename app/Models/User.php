@@ -3,10 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Constants\DateTime\DateTimeFormat;
 use App\DataTransferObjects\UserData;
 use App\Enums\User\UserGender;
 use App\Traits\HasImage;
+use App\Traits\HasSerializeDate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -22,8 +22,12 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
     use HasImage;
     use WithData;
+    use HasSerializeDate;
 
     protected string $dataClass = UserData::class;
+
+
+    public $timestamps = true;
 
 
     /**
@@ -40,6 +44,7 @@ class User extends Authenticatable
         'gender',
         'country_id',
         'date_of_birth',
+        'password',
     ];
 
     /**
@@ -59,8 +64,15 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'date_of_birth' => 'datetime:' . DateTimeFormat::DATE_OF_BIRTH,
+        'date_of_birth' => 'date',
         'gender' => UserGender::class,
+//        'created_at' => 'datetime',
+//        'updated_at' => 'datetime',
+    ];
+
+
+    protected $attributes = [
+        'gender' => UserGender::other,
     ];
 
 
@@ -123,4 +135,13 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Country::class);
     }
+
+//    public function dateOfBirth(): Attribute
+//    {
+//        return new Attribute(
+//            set: function ($value) {
+//                return $value;
+//            },
+//        );
+//    }
 }

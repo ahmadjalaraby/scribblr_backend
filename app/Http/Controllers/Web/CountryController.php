@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Actions\Country\DeleteCountryAction;
-use App\Actions\Country\UpsertCountryAction;
+use App\Actions\Web\Country\DeleteCountryAction;
+use App\Actions\Web\Country\UpsertCountryAction;
 use App\DataTransferObjects\CountryData;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
@@ -38,9 +38,11 @@ class CountryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CountryData $data): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        UpsertCountryAction::execute($data);
+        UpsertCountryAction::execute(
+            data: CountryData::fromRequest(request: $request),
+        );
         return redirect()->back();
     }
 

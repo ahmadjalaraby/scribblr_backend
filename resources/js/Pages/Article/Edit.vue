@@ -33,7 +33,7 @@ const form = useForm({
     id: props.model.article.id,
     title: props.model.article.title,
     content: props.model.article.content,
-    status: props.model.article.status.value,
+    status: props.model.article.status,
     publish_time: props.model.article.publish_time,
     allow_comments: props.model.article.allow_comments == 1,
     tag_id: props.model.article.tag_id,
@@ -82,7 +82,6 @@ const handleSubmit = async () => {
                 console.log(error);
             },
             onSuccess: () => {
-                form.reset();
                 toast.success(t('dashboard.successfully_updated'), {
                     timeout: 2000,
                 });
@@ -137,7 +136,7 @@ const toast = useToast();
         </div>
 
         <div>
-            {{ props.model }}
+            {{ props.model.article }}
         </div>
     </form>
 </template>

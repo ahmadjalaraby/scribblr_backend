@@ -7,7 +7,6 @@ import Card from '@/Components/Card/index.vue';
 import Button from '@/Components/Button/index.vue';
 import TagFormContent from '@/Pages/Tag/Components/Create/TagFormContent.vue';
 import {computed} from "vue";
-import UserFormContent from "@/Pages/User/Components/Create/UserFormContent.vue";
 import ArticleFormContent from "@/Pages/Article/Component/Create/ArticleFormContent.vue";
 
 const {t} = useI18n();

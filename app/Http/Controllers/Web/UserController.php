@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Actions\User\DeleteUserAction;
-use App\Actions\User\UpsertUserAction;
+use App\Actions\Web\User\DeleteUserAction;
+use App\Actions\Web\User\UpsertUserAction;
 use App\DataTransferObjects\UserData;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -12,6 +12,7 @@ use App\ViewModels\User\CreateUserViewModel;
 use App\ViewModels\User\EditUserViewModel;
 use App\ViewModels\User\GetUsersViewModel;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -43,9 +44,11 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserData $data): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        UpsertUserAction::execute($data);
+        UpsertUserAction::execute(
+            data: UserData::fromRequest(request: $request),
+        );
         return redirect()->back();
     }
 
@@ -70,10 +73,10 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserData $data, User $user): RedirectResponse
+    public function update(Request $request, User $user): RedirectResponse
     {
         UpsertUserAction::execute(
-            $data,
+            data: UserData::fromRequest(request: $request),
         );
 
         return Redirect::back();

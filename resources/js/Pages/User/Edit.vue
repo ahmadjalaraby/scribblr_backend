@@ -44,6 +44,9 @@ import UserFormContent from "@/Pages/User/Components/Create/UserFormContent.vue"
 import useImageUrl from "@/Composables/useImageUrl";
 import Image from "@/Components/Image/index.vue";
 
+console.log(props.user);
+
+
 const {t} = useI18n();
 
 
@@ -74,7 +77,7 @@ const form = useForm({
     username: props.user.user.username,
     email: props.user.user.email,
     date_of_birth: props.user.user.date_of_birth,
-    gender: props.user.user.gender.value,
+    gender: props.user.user.gender,
     country_id: props.user.user.country_id,
     image: null,
     _method: 'put',
